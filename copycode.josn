@@ -1,0 +1,60 @@
+{
+    "name": "copy1",
+    "properties": {
+        "activities": [
+            {
+                "name": "Copy_of",
+                "type": "Copy",
+                "dependsOn": [],
+                "policy": {
+                    "timeout": "7.00:00:00",
+                    "retry": 0,
+                    "retryIntervalInSeconds": 30,
+                    "secureOutput": false,
+                    "secureInput": false
+                },
+                "userProperties": [
+                    {
+                        "name": "Source",
+                        "value": "[dbo].[demotab]"
+                    },
+                    {
+                        "name": "Destination",
+                        "value": "mlensblob//demotab"
+                    }
+                ],
+                "typeProperties": {
+                    "source": {
+                        "type": "SqlDWSource"
+                    },
+                    "sink": {
+                        "type": "DelimitedTextSink",
+                        "storeSettings": {
+                            "type": "AzureBlobStorageWriteSetting"
+                        },
+                        "formatSettings": {
+                            "type": "DelimitedTextWriteSetting",
+                            "quoteAllText": true,
+                            "fileExtension": ".txt"
+                        }
+                    },
+                    "enableStaging": false
+                },
+                "inputs": [
+                    {
+                        "referenceName": "SourceDataset_tmn",
+                        "type": "DatasetReference"
+                    }
+                ],
+                "outputs": [
+                    {
+                        "referenceName": "DestinationDataset_tmn",
+                        "type": "DatasetReference"
+                    }
+                ]
+            }
+        ],
+        "annotations": []
+    },
+    "type": "Microsoft.DataFactory/factories/pipelines"
+}
